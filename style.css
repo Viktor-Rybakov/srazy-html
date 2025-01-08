@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
+  --light-color: #FFFFFF;
   --dark-color: #000000;
   --grey-color-1: #F5F5F6;
   --grey-color-2: #434343;
   --grey-color-3: #525252;
+  --grey-color-4: #E4E4E4;
+  --grey-color-5: #636363;
   --accent-color: #FFDD2D;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
@@ -14,17 +21,35 @@ body {
   font-family: "Roboto", serif;
   font-size: 16px;
   line-height: 24px;
+  background-color: var(--light-color);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   max-width: 1170px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
   padding-top: 75px;
   padding-bottom: 75px;
+}
+
+.section__button {
+  align-self: center;
 }
 
 .title {
@@ -73,4 +98,95 @@ body {
   border: none;
   border-radius: calc(infinity * 1px);
   cursor: pointer;
+}
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  counter-reset: faq 0;
+}
+
+.fag__item {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  grid-template-rows: 1fr max-content;
+  grid-template-areas:
+    "counter title"
+    "counter description";
+  counter-increment: faq 1;
+  border: 1px solid var(--grey-color-4);
+  border-left: none;
+  cursor: pointer;
+}
+
+.fag__item::before {
+  content: counter(faq);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: counter;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  padding: 8px 12px;
+  color: var(--light-color);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 56px;
+  background-color: var(--accent-color);
+}
+
+.fag__item--opened::before {
+  content: 'Ответ';
+  writing-mode: vertical-lr;
+  transform: rotate(-180deg);
+}
+
+.faq__item-title {
+  display: grid;
+  grid-template-columns: 1fr 21px;
+  grid-auto-flow: dense;
+  align-items: center;
+  grid-area: title;
+  min-height: 70px;
+  padding: 24px 70px 24px 30px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.faq__item-title::before {
+  content: '';
+  grid-column: 2;
+  grid-row: 1;
+  width: 21px;
+  height: 2px;
+  background-color: var(--grey-color-5);
+}
+
+.faq__item-title::after {
+  content: '';
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: 2px;
+  height: 21px;
+  background-color: var(--grey-color-5);
+}
+
+.fag__item--opened .faq__item-title::after {
+  content: unset;
+}
+
+.faq__item-description {
+  grid-area: description;
+  height: 0;
+  margin: 0;
+  padding: 0 70px 0 30px;
+  overflow: hidden;
+}
+
+.fag__item--opened .faq__item-description {
+  height: auto;
+  padding-bottom: 24px;
 }
